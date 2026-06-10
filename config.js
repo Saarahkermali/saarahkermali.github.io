@@ -2,7 +2,7 @@ const CONFIG = {
   // ── Recipient Info ────────────────────────────────────────────
   name: "Saarah ❤️",
   photo: "./img/saarah.jpeg",
-  music: "./music/music1.mpeg",
+  music: "./music/hbd.mpeg",
 
   // ── CINEMATIC THEME ───────────────────────────────────────────
   colors: {
