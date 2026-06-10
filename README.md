@@ -30,7 +30,7 @@ Everything is controlled from **one file: `config.js`**.
 ```javascript
 name: "Irene",                        // Recipient's name
 photo: "./img/irene.jpg",             // Photo in the img/ folder
-music: "./music/hbd.mpeg",            // Music in the music/ folder
+music: "./music/music1.mpeg",            // Music in the music/ folder
 ```
 
 ### 2. Choose a Theme
