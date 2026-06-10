@@ -18,7 +18,6 @@ function applyTheme(mode) {
   root.style.setProperty("--bg", theme.background || "#1a1a2e");
   root.style.setProperty("--text", theme.text || "#ffffff");
 
-  // Update toggle icon
   const btn = document.getElementById("theme-toggle");
   if (btn) btn.textContent = mode === "dark" ? "☀️" : "🌙";
 }
@@ -28,9 +27,11 @@ function createThemeToggle() {
   btn.id = "theme-toggle";
   btn.title = "Toggle dark/light mode";
   btn.textContent = currentMode === "dark" ? "☀️" : "🌙";
+
   btn.addEventListener("click", () => {
     applyTheme(currentMode === "dark" ? "light" : "dark");
   });
+
   document.body.appendChild(btn);
 }
 
@@ -52,6 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Set music source
   const audio = document.querySelector(".song");
+
   if (audio && CONFIG.music) {
     audio.querySelector("source").src = CONFIG.music;
     audio.load();
@@ -75,16 +77,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   CONFIG.sections.forEach((section) => {
     const comp = window.Components && window.Components[section.type];
+
     if (!comp) {
       console.warn(`Component "${section.type}" not found, skipping.`);
       return;
     }
+
     const el = comp.render(container, section, CONFIG);
     rendered.push({ el, comp, section });
   });
 
   // SweetAlert music prompt
   const isDark = currentMode === "dark";
+
   Swal.fire({
     title: "Play music in the background?",
     icon: "question",
@@ -96,9 +101,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     background: isDark ? "#1e293b" : "#ffffff",
     color: isDark ? "#f1f5f9" : "#1e293b",
   }).then((result) => {
+
     if (result.isConfirmed && audio) {
-      audio.play().catch(() => {});
+      audio.volume = 0.8;
+
+      audio.play().catch((err) => {
+        console.log("Audio play failed:", err);
+      });
     }
+
     buildTimeline(rendered);
   });
 });
@@ -107,24 +118,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 function buildTimeline(rendered) {
   const tl = gsap.timeline();
 
-  tl.to(".container", { duration: 0.6, visibility: "visible" });
+  tl.to(".container", {
+    duration: 0.6,
+    visibility: "visible",
+  });
 
-  // Track deferred exits for overlay components
   let deferredExits = [];
 
-  rendered.forEach(({ el, comp, section }, i) => {
+  rendered.forEach(({ el, comp }, i) => {
     const isOverlay = comp.overlay === true;
 
-    // Flush deferred exits before non-overlay sections
     if (!isOverlay && deferredExits.length > 0) {
       deferredExits.forEach((fn) => fn());
       deferredExits = [];
     }
 
-    // Animate
     comp.animate(tl, el, CONFIG);
 
-    // Handle exit lifecycle
     if (comp.exit) {
       const next = rendered[i + 1];
       const nextIsOverlay = next && next.comp.overlay === true;
@@ -137,12 +147,13 @@ function buildTimeline(rendered) {
     }
   });
 
-  // Flush remaining
   deferredExits.forEach((fn) => fn());
 
-  // Setup replay
   const replayBtn = document.getElementById("replay");
+
   if (replayBtn) {
-    replayBtn.addEventListener("click", () => tl.restart());
+    replayBtn.addEventListener("click", () => {
+      tl.restart();
+    });
   }
 }
