@@ -359,9 +359,8 @@ body {
 }
 
 
-.wish-hbd .word {
+.wish-hbd span {
   display: inline-block;
-  margin-right: 0.35em;
 }
 
 .wish-text {

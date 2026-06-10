@@ -74,12 +74,12 @@ const CONFIG = {
 
     {
       type: "stars",
-      count: 25,
+      count: 80,
     },
 
     {
       type: "balloons",
-      count: 19,
+      count: 50,
     },
 
     {

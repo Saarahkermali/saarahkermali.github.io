@@ -205,15 +205,17 @@ Create a `.js` file in `script/components/` following this template:
     },
 
     animate(tl, el, config) {
-      tl.from(el, { duration: 0.7, opacity: 0, y: 20 })
-        .to(el, { duration: 0.7, opacity: 0 }, "+=3");
-    },
-
-    // Optional: deferred exit (runs after overlays finish)
-    // exit(tl, el) {
-    //   tl.to(el, { duration: 0.5, opacity: 0 });
-    // },
-  };
+  tl.from(el, {
+    duration: 1,
+    opacity: 0,
+    y: 30,
+    ease: "power2.out"
+  })
+  .to(el, {
+    duration: 0.8,
+    opacity: 0
+  }, "+=4"); // ⬅️ stays longer here
+};
 })();
 ```
 

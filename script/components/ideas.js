@@ -39,7 +39,7 @@
 
     animate(tl, el, CONFIG) {
       const section = this.section || {};
-      const speed = section.speed || 0.5;
+      const speed = section.speed || 0.7;
 
       const regularLines = el.querySelectorAll(
         ".idea-line:not(.idea-special)"
@@ -60,11 +60,11 @@
             y: 0,
             rotationX: 0,
             skewX: "0deg",
-            duration: 0.5,
+            duration: 0.8,
           }
         ).to(line, {
           ...LEAVE,
-          duration: 0.4,
+          duration: 0.8,
           delay: speed, // controls pacing properly
         });
       });
@@ -88,12 +88,12 @@
             skewY: "0deg",
             y: 0,
             opacity: 1,
-            duration: 0.7,
+            duration: 0.8,
           }
         ).to(specialLine, {
           scale: 0.3,
           opacity: 0,
-          duration: 0.6,
+          duration: 0.8,
           delay: speed,
         });
       }
@@ -113,7 +113,7 @@
             scale: 1,
             opacity: 1,
             rotation: 0,
-            duration: 0.6,
+            duration: 0.8,
             ease: "expo.out",
             stagger: 0.15,
           }
@@ -121,7 +121,7 @@
           scale: 3,
           opacity: 0,
           rotation: -15,
-          duration: 0.6,
+          duration: 0.8,
           delay: speed,
           stagger: 0.1,
         });
